@@ -2,12 +2,8 @@ package com.example.login
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.text.Editable
-import android.text.InputFilter
-import android.text.TextWatcher
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
@@ -55,9 +51,9 @@ class MainActivity : AppCompatActivity() {
             mainViewModel.getUserInfo()
         }
         binding.etPassword.filters = arrayOf(CommonFilter())
-        mainViewModel.response.observe(this, Observer {
-            binding.tvUserInfo.text = it.toString()
-        })
+        mainViewModel.data.observe(this) {
+            binding.tvUserInfo.text = it.firstOrNull().toString()
+        }
     }
 
     private fun setLoginEvent() {

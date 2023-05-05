@@ -9,12 +9,13 @@ import java.util.concurrent.TimeUnit
 
 class RetrofitManager private constructor() {
     private val apiService: APIService
-    private val Domain = "https://api.github.com"
-    private var logging = HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
-        override fun log(message: String) {
-            Log.e("api","interceptor msg: $message")
-        }
-    }).apply {
+    private val Domain = "https://api.github.com/"
+    private var logging = HttpLoggingInterceptor { message ->
+        Log.e(
+            "api",
+            "interceptor msg: $message"
+        )
+    }.apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
 
@@ -22,7 +23,7 @@ class RetrofitManager private constructor() {
 
     init {
         val retrofit = Retrofit.Builder()
-        .baseUrl(Domain)
+            .baseUrl(Domain)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()

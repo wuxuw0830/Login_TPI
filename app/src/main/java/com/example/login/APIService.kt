@@ -8,6 +8,6 @@ import retrofit2.http.POST
 
 
 interface APIService {
-    @GET("/users")
-     fun getUserInfo(): Call<UserInfo>
+    @GET("users")
+     fun getUserInfo(): Call<List<UserInfo>>
 }
